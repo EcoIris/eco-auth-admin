@@ -25,6 +25,17 @@
     "classnames" "^2.2.6"
     "rc-util" "^5.9.4"
 
+"@ant-design/pro-card@^1.17.0":
+  "integrity" "sha512-iljpnyP4wm4rvGBq2sVPf3z+aeJz9g2TNL6hPE0ZT8LkfVWy/efkl00JAn9X1GU/RMTMNyabMt3LjUvCsp8kuA=="
+  "resolved" "https://registry.npmmirror.com/@ant-design/pro-card/download/@ant-design/pro-card-1.17.0.tgz?cache=0&sync_timestamp=1636353109200&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40ant-design%2Fpro-card%2Fdownload%2F%40ant-design%2Fpro-card-1.17.0.tgz"
+  "version" "1.17.0"
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@ant-design/pro-utils" "1.26.1"
+    "classnames" "^2.2.6"
+    "omit.js" "^2.0.2"
+    "rc-util" "^5.4.0"
+
 "@ant-design/pro-field@1.24.1":
   "integrity" "sha1-9gBY90dMIsRhj7d1skMT/2Qqz08="
   "resolved" "https://registry.npmmirror.com/@ant-design/pro-field/download/@ant-design/pro-field-1.24.1.tgz"

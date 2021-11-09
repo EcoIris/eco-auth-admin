@@ -1,22 +1,21 @@
 import React, {useRef} from 'react';
 import {PlusOutlined, EllipsisOutlined} from '@ant-design/icons';
 import {Button, Tag, Space, Menu, Dropdown} from 'antd';
-import {ActionType} from '@ant-design/pro-table';
 import ProTable, {TableDropdown} from '@ant-design/pro-table';
-
 
 const columns = [
     {
-        dataIndex: 'index',
+        title: 'ID',
+        dataIndex: 'id',
         valueType: 'indexBorder',
-        width: 48,
+        width: 60,
     },
     {
         title: '标题',
         dataIndex: 'title',
         copyable: true,
         ellipsis: true,
-        tip: '标题过长会自动收缩',
+        tip: '我是介绍',
         formItemProps: {
             rules: [
                 {
@@ -53,9 +52,6 @@ const columns = [
         title: '标签',
         dataIndex: 'labels',
         search: false,
-        renderFormItem: (_, {defaultRender}) => {
-            return defaultRender(_);
-        },
         render: (_, record) => (
             <Space>
                 {record.labels.map(({name, color}) => (
@@ -76,7 +72,7 @@ const columns = [
     },
     {
         title: '创建时间',
-        dataIndex: 'created_at',
+        dataIndex: 'end_at',
         valueType: 'dateRange',
         hideInTable: true,
         search: {
@@ -123,46 +119,75 @@ const menu = (
     </Menu>
 );
 
-export default function Item() {
+function init() {
+    return {
+        data: [],
+        version: 0,
+    }
+}
+
+export default function IProTable() {
+    const [state, setState] = React.useState(init());
+
     const actionRef = useRef();
+
+    React.useEffect(() => {
+        const data = [];
+        for (let i = 1; i < 46; i++) {
+            data.push({
+                id: i,
+                title: `Edward King ${i}`,
+                state: parseInt((Math.random() * 10).toString()),
+                labels: [{name:'bob', color: 'red'}],
+                created_at: `2021-11-09`,
+                end_at: `2021-11-09 00:00:00`,
+            });
+        }
+        setState(state=>({
+            ...state,
+            data: data,
+            loading: false
+        }));
+    }, [state.version]);
+
+
     return (
-        <ProTable>
+        <ProTable
             columns={columns}
             actionRef={actionRef}
+            dataSource={state.data}
             request={async (params = {}, sort, filter) => {
-            console.log(sort, filter);
-            // return request<{
-            //     data: GithubIssueItem[];
-            // }>('https://proapi.azurewebsites.net/github/issues', {
-            //     params,
-            // });
-        }}
+                console.log(params, sort, filter);
+            }}
             editable={{
-            type: 'multiple',
-        }}
+                type: 'multiple',
+            }}
             columnsState={{
-            persistenceKey: 'pro-table-singe-demos',
-            persistenceType: 'localStorage',
-        }}
+                persistenceKey: 'pro-table-singe-demos',
+                persistenceType: 'localStorage',
+            }}
             rowKey="id"
             search={{
-            labelWidth: 'auto',
-        }}
+                labelWidth: 'auto',
+            }}
             form={{
-            // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
-            syncToUrl: (values, type) => {
-                if (type === 'get') {
-                    return {
-                        ...values,
-                        created_at: [values.startTime, values.endTime],
-                    };
-                }
-                return values;
-            },
-        }}
+                // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
+                syncToUrl: (values, type) => {
+                    if (type === 'get') {
+                        return {
+                            ...values,
+                            created_at: [values.startTime, values.endTime],
+                        };
+                    }
+                    return values;
+                },
+            }}
+            rowSelection={{
+
+            }}
             pagination={{
-            pageSize: 5,
-        }}
+                pageSize: 5,
+            }}
             dateFormatter="string"
             headerTitle="高级表格"
             toolBarRender={() => [
@@ -174,6 +199,7 @@ export default function Item() {
                         <EllipsisOutlined/>
                     </Button>
                 </Dropdown>,
-        ]}/>
+            ]}
+        />
     );
 };

@@ -1,24 +1,26 @@
 import React from 'react';
-import {Form, Row, Col, Input, Table, Button, Select , message} from 'antd';
-import './Count.less';
+import {Form, Row, Col, Input, Table, Button, Select, message, Space} from 'antd';
 import BatchOperation from "../../common/BatchOperation";
+import UserDetail from "./UserDetail";
 
 function init() {
     return {
         selectedRowKeys: [],
-        loading: false,
+        loading: true,
         expand: false,
-        data: [],
-        version: 0
+        visible: false,
+        version: 0,
+        id: 0,
+        data: []
     };
 }
 
-export default function Count() {
+export default function UserTable() {
     const [state, setState] = React.useState(init());
 
     const [form] = Form.useForm();
 
-    const { Option } = Select;
+    const {Option} = Select;
 
     const rowSelection = {
         selectedRowKeys: state.selectedRowKeys,
@@ -29,44 +31,74 @@ export default function Count() {
 
     const columns = [
         {
+            title: 'ID',
+            dataIndex: 'id',
+            width: 50,
+            editable: true,
+            render: (text, record) => (
+                <a onClick={() => handleEdit(record)}>{record.id}</a>
+            )
+        },
+        {
             title: '名称',
             dataIndex: 'name',
             width: 100,
             editable: true,
         },
         {
-            title: '年龄',
-            dataIndex: 'age',
-            width: 100,
-            sorter: (a, b) => a.age - b.age,
+            title: '性别',
+            dataIndex: 'sex',
+            width: 50,
+            sorter: (a, b) => a.sex - b.sex,
             sortDirections: ['ascend', 'descend'],
+            render: (text, record) => {
+                switch(record.sex) {
+                    case 1:
+                        return '男';
+                    case 2:
+                        return '女';
+                    default:
+                        return '胡一菲';
+                }
+            }
         },
         {
             title: '地址',
             dataIndex: 'address',
-            width: 30,
+            width: 80,
             ellipsis: true,
+        },
+        {
+            title: '操作',
+            dataIndex: 'action',
+            width: 50,
+            render: (text, record) => (
+                <Space size="middle">
+                    <a onClick={() => handleDelete(record)}>删除</a>
+                </Space>
+            )
         },
     ];
 
     React.useEffect(() => {
         const data = [];
-        for (let i = 0; i < 46; i++) {
+        for (let i = 1; i < 46; i++) {
             data.push({
-                key: i,
+                id: i,
                 name: `Edward King ${i}`,
-                age: parseInt((Math.random() * 1000).toString()),
+                sex: (i % 2 === 0) ? 1 : 2,
                 address: `London, Park Lane no. ${i}`,
             });
         }
-        setState(state=>({
+        setState(state => ({
             ...state,
-            data: data
+            data: data,
+            loading: false
         }));
     }, [state.version]);
 
     function onFinish(values) {
-        console.log('Received values of form: ', values);
+        message.success('Received values of form: ' + JSON.stringify(values));
     }
 
     function onSelectChange(selectedRowKeys) {
@@ -75,6 +107,19 @@ export default function Count() {
             ...state,
             selectedRowKeys
         });
+    }
+
+    function handleEdit(obj) {
+        message.success(JSON.stringify(obj));
+        setState({
+            ...state,
+            visible: true,
+            id: obj.id
+        })
+    }
+
+    function handleDelete(obj) {
+        message.error(JSON.stringify(obj));
     }
 
     function handleChange(pagination, filters, sorter, extra) {
@@ -88,6 +133,13 @@ export default function Count() {
     function handleBatchDelete() {
         console.log(state.selectedRowKeys);
         message.warning('功能开发中');
+    }
+
+    function handleClosable() {
+        setState({
+            ...state,
+            visible: false,
+        })
     }
 
     return (
@@ -122,10 +174,8 @@ export default function Count() {
                             >
                                 <Select onChange={handleSelectChange}>
                                     <Option value="">选择年龄</Option>
-                                    <Option value="1">10</Option>
-                                    <Option value="2">20</Option>
-                                    <Option value="3" disabled>30</Option>
-                                    <Option value="4">40</Option>
+                                    <Option value="1">男</Option>
+                                    <Option value="2">女</Option>
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -154,8 +204,17 @@ export default function Count() {
 
             {hasSelected && <BatchOperation length={state.selectedRowKeys.length} onClick={handleBatchDelete}/>}
 
-            <Table bordered={true} rowSelection={rowSelection} columns={columns} dataSource={state.data}
-                   onChange={handleChange} pagination={{pageSize: 20}}/>
+            <Table
+                loading={state.loading}
+                bordered={true}
+                rowSelection={rowSelection}
+                columns={columns}
+                dataSource={state.data}
+                onChange={handleChange}
+                pagination={{pageSize: 20}}
+                rowKey="id"
+            />
+            <UserDetail visible={state.visible} id={state.id} handleCancel={handleClosable}/>
         </div>
     );
 }

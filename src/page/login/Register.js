@@ -159,6 +159,14 @@ export default function Login() {
                         />
                     </>
                 )}
+                <div style={{marginBottom: 24}}>
+                    <a href="/login">
+                        去登录
+                    </a>
+                    {/*<a style={{float: 'right'}} href="/#">*/}
+                    {/*    忘记密码*/}
+                    {/*</a>*/}
+                </div>
             </LoginForm>
         </div>
     );

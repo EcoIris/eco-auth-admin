@@ -28,7 +28,7 @@ export default function VerifyLogin({children}) {
             <SideBar/>
             <Layout className="site-layout">
                 <Header/>
-                <Content>{children}</Content>
+                <Content style={{margin: '50px 50px'}}>{children}</Content>
                 <Footer/>
             </Layout>
         </Layout> : <Spin size="large" style={{position: 'absolute', left: '50%', top: '50%'}}/>);

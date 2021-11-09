@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
 import {
-    DesktopOutlined,
+    // DesktopOutlined,
     PieChartOutlined,
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
@@ -13,27 +13,43 @@ const {SubMenu} = Menu;
 
 const menuList = [
     {
-        key: 'list',
-        name: '列表',
+        key: 'components',
+        name: '组件',
         icon: <PieChartOutlined/>,
         children: [
             {
-                key: '/list/count',
-                name: '统计列表',
+                key: '/components/user-table',
+                name: '普通表格',
             },
-        ]
-    },
-    {
-        key: 'home',
-        name: '用户',
-        icon: <DesktopOutlined/>,
-        children: [
             {
-                key: '/home/group',
-                name: '群组管理',
+                key: '/components/pro-table',
+                name: '高级表格',
+            },
+            {
+                key: '/components/user-from',
+                name: '分步表单',
+            },
+            {
+                key: '/components/pro-from',
+                name: '高级表单',
+            },
+            {
+                key: '/components/page-transfer',
+                name: '穿梭框',
             },
         ]
     },
+    // {
+    //     key: 'user',
+    //     name: '用户',
+    //     icon: <DesktopOutlined/>,
+    //     children: [
+    //         {
+    //             key: '/user/info',
+    //             name: '个人中心',
+    //         },
+    //     ]
+    // },
 ];
 
 class SideBar extends Component {
@@ -41,6 +57,7 @@ class SideBar extends Component {
         collapsed: false,
         defaultOpenKeys: [],
         defaultSelectedKeys: [],
+        style: {}
     };
 
     UNSAFE_componentWillMount() {
@@ -53,14 +70,12 @@ class SideBar extends Component {
         let defaultSelectedKeys = [];
         const pathname = window.location.pathname;
         const currentKey = pathname.split('/')[1];
-
         menuList.forEach(v => {
             if (currentKey === v.key) {
                 defaultOpenKeys.push(v.key);
                 defaultSelectedKeys.push(pathname);
             }
         });
-
         this.setState({
             defaultOpenKeys,
             defaultSelectedKeys
@@ -69,19 +84,20 @@ class SideBar extends Component {
 
     //展开/收缩侧边栏
     onCollapse = collapsed => {
-        this.setState({collapsed});
+        console.log(collapsed);
+        this.setState({
+            collapsed,
+        });
     };
 
     render() {
         return (
-            <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} breakpoint="xl">
-                <div className="logo">
-                    <div className="ant-pro-sider-logo" id="logo">
-                        <a href="/">
-                            <img src={config.logo} alt="logo"/>
-                            <h1>{config.title}</h1>
-                        </a>
-                    </div>
+            <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} collapsedWidth={65}  breakpoint="lg">
+                <div className="ant-pro-sider-logo" id="logo">
+                    <a href="/">
+                        <img src={config.logo} alt="logo"/>
+                        <h1>{config.title}</h1>
+                    </a>
                 </div>
                 <Menu theme="dark" defaultOpenKeys={this.state.defaultOpenKeys} defaultSelectedKeys={this.state.defaultSelectedKeys} mode="inline">
                     {menuList.map(v => <SubMenu key={v.key} icon={v.icon} title={v.name}>

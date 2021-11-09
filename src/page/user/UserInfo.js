@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Group = () => {
+const UserInfo = () => {
     return <div>我是群管理</div>;
 }
-export default Group;
+export default UserInfo;

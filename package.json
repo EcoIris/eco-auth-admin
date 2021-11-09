@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/pro-card": "^1.17.0",
     "@ant-design/pro-form": "^1.46.0",
     "@ant-design/pro-table": "^2.56.7",
     "@craco/craco": "^6.3.0",
@@ -29,8 +30,8 @@
       "react-app",
       "react-app/jest"
     ],
-    "rules":{
-      "jsx-a11y/anchor-is-valid":"off"
+    "rules": {
+      "jsx-a11y/anchor-is-valid": "off"
     }
   },
   "browserslist": {
