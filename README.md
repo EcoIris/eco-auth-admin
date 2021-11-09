@@ -1,11 +1,25 @@
-# 基于react+and design实现的权限管理后台
+# 基于react + and design实现的权限管理后台
+
+- [React](https://react.docschina.org/)
+- [Ant Design](https://ant.design/docs/react/introduce-cn)
 
 ```
 git clone git@github.com:EcoIris/eco-auth-admin.git
 ```
+安装、初始化和编译使用npm或yarn
+```
+npm install 
 
-## Available Scripts
+npm start 
 
-In the project directory, you can run:
+npm run build 
+```
+or
+```
+yarn install 
 
-### `yarn start`
+yarn start 
+
+yarn run build 
+```
+

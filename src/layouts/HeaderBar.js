@@ -1,6 +1,5 @@
 import React from 'react';
 import {Layout, Menu, Dropdown} from 'antd';
-import {Link} from 'react-router-dom';
 
 function init() {
     return {
@@ -15,7 +14,6 @@ export default function HeaderBar() {
 
     const menu = (
         <Menu onClick={onMenuClick}>
-            <Menu.Item key="userInfo"><Link to='/user/info'>个人中心</Link></Menu.Item>
             <Menu.Item key="outLogin">退出登录</Menu.Item>
         </Menu>
     );
