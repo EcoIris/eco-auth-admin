@@ -39,7 +39,7 @@ export default function Login() {
         message.success(JSON.stringify(e));
         //模拟登录成功保存返回的用户信息
         let arr = {
-            username: 'Eco',
+            username: e.username ? e.username : e.mobile,
             image: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
         };
         localStorage.setItem("user", JSON.stringify(arr));
@@ -83,7 +83,7 @@ export default function Login() {
                                 size: 'large',
                                 prefix: <UserOutlined className={'prefixIcon'}/>,
                             }}
-                            placeholder={'用户名: admin or user'}
+                            placeholder={'用户名'}
                             rules={[
                                 {
                                     required: true,
@@ -97,7 +97,7 @@ export default function Login() {
                                 size: 'large',
                                 prefix: <LockOutlined className={'prefixIcon'}/>,
                             }}
-                            placeholder={'密码: ant.design'}
+                            placeholder={'密码'}
                             rules={[
                                 {
                                     required: true,

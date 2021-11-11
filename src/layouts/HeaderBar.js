@@ -22,6 +22,7 @@ export default function HeaderBar() {
 
     function onMenuClick(e) {
         if (e.key === 'outLogin') {
+            localStorage.removeItem('user');
             setState({
                 ...state,
                 visible: false

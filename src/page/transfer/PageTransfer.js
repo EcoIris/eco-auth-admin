@@ -37,7 +37,6 @@ export default function PageTransfer(){
                 targetKeys={targetKeys}
                 onChange={onChange}
                 render={item => item.title}
-                // oneWay={oneWay}
                 pagination
                 showSearch={true}
                 listStyle={{
