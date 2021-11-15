@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
+import { setFooterCollapsed } from '../action/action';
+import { connect } from 'react-redux'
 import {
-    // DesktopOutlined,
     PieChartOutlined,
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
@@ -38,18 +39,7 @@ const menuList = [
                 name: '穿梭框',
             },
         ]
-    },
-    // {
-    //     key: 'user',
-    //     name: '用户',
-    //     icon: <DesktopOutlined/>,
-    //     children: [
-    //         {
-    //             key: '/user/info',
-    //             name: '个人中心',
-    //         },
-    //     ]
-    // },
+    }
 ];
 
 class SideBar extends Component {
@@ -84,7 +74,10 @@ class SideBar extends Component {
 
     //展开/收缩侧边栏
     onCollapse = collapsed => {
-        console.log(collapsed);
+        // react-redux 触发setFooterCollapsed
+        let { setFooterCollapsed } = this.props
+        setFooterCollapsed(collapsed);
+
         this.setState({
             collapsed,
         });
@@ -111,4 +104,20 @@ class SideBar extends Component {
     }
 }
 
-export default SideBar;
+// mapStateToProps：将state映射到组件的props中
+const mapStateToProps = (state) => {
+    return {
+        footerCollapsed: state.footerCollapsed,
+    }
+}
+
+// mapDispatchToProps：将dispatch映射到组件的props中
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        setFooterCollapsed (data) {
+            dispatch(setFooterCollapsed(data))
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
