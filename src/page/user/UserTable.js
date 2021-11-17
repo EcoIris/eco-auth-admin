@@ -34,16 +34,22 @@ export default function UserTable() {
             title: 'ID',
             dataIndex: 'id',
             width: 50,
-            editable: true,
             render: (text, record) => (
                 <a onClick={() => handleEdit(record)}>{record.id}</a>
             )
         },
         {
-            title: '名称',
+            title: '头像',
+            dataIndex: 'image',
+            width: 100,
+            render: ((text, record) => {
+                return <img src={text} alt="" width={50}/>
+            })
+        },
+        {
+            title: '昵称',
             dataIndex: 'name',
             width: 100,
-            editable: true,
         },
         {
             title: '性别',
@@ -63,9 +69,14 @@ export default function UserTable() {
             }
         },
         {
-            title: '地址',
-            dataIndex: 'address',
+            title: '年龄',
+            dataIndex: 'age',
             width: 80,
+        },
+        {
+            title: '描述',
+            dataIndex: 'desc',
+            width: 100,
             ellipsis: true,
         },
         {
@@ -86,8 +97,10 @@ export default function UserTable() {
             data.push({
                 id: i,
                 name: `Edward King ${i}`,
+                image: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
                 sex: (i % 2 === 0) ? 1 : 2,
-                address: `London, Park Lane no. ${i}`,
+                age: parseInt(Math.random() * 100),
+                desc: `London, Park Lane no. ${i}`,
             });
         }
         setState(state => ({
@@ -119,7 +132,7 @@ export default function UserTable() {
     }
 
     function handleDelete(obj) {
-        message.error(JSON.stringify(obj));
+        message.success(JSON.stringify(obj));
     }
 
     function handleChange(pagination, filters, sorter, extra) {
@@ -132,7 +145,7 @@ export default function UserTable() {
 
     function handleBatchDelete() {
         console.log(state.selectedRowKeys);
-        message.warning('功能开发中');
+        message.success('功能开发中');
     }
 
     function handleClosable() {
@@ -156,15 +169,23 @@ export default function UserTable() {
                         <Col span={6}>
                             <Form.Item
                                 name="name"
-                                label="姓名"
+                                label="昵称"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Input something!',
+                                        message: '昵称必填',
                                     },
                                 ]}
                             >
-                                <Input placeholder="placeholder"/>
+                                <Input placeholder="输入昵称"/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={6}>
+                            <Form.Item
+                                name="id"
+                                label="ID"
+                            >
+                                <Input placeholder="输入ID"/>
                             </Form.Item>
                         </Col>
                         <Col span={6}>
@@ -181,10 +202,10 @@ export default function UserTable() {
                         </Col>
                         <Col span={6}>
                             <Form.Item
-                                name="address"
-                                label="地址"
+                                name="age"
+                                label="年龄"
                             >
-                                <Input placeholder="placeholder"/>
+                                <Input placeholder="输入年龄"/>
                             </Form.Item>
                         </Col>
                     </Row>

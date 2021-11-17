@@ -163,7 +163,7 @@ export default function IProTable() {
                 type: 'multiple',
             }}
             columnsState={{
-                persistenceKey: 'pro-table-singe-demos',
+                persistenceKey: 'pro-user-singe-demos',
                 persistenceType: 'localStorage',
             }}
             rowKey="id"

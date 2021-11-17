@@ -5,12 +5,10 @@ import Login from "./page/login/Login";
 import Register from "./page/login/Register";
 import VerifyLogin from "./components/VerifyLogin";
 import Home from "./page/home/Home";
-import UserInfo from "./page/user/UserInfo";
-import UserTable from "./page/table/UserTable";
+import UserTable from "./page/user/UserTable";
 import UserFrom from './page/from/UserFrom';
-import IProTable from "./page/table/ProTable";
+import IProTable from "./page/user/ProTable";
 import IProFrom from "./page/from/ProFrom";
-import PageTransfer from "./page/transfer/PageTransfer";
 
 const App = React.FC = () => {
     return (
@@ -22,12 +20,10 @@ const App = React.FC = () => {
                     <VerifyLogin>
                         <Switch>
                             <Route path="/" exact component={Home}/>
-                            <Route path="/user/info" exact component={UserInfo}/>
-                            <Route path="/components/user-table" exact component={UserTable}/>
+                            <Route path="/user/user-table" exact component={UserTable}/>
                             <Route path="/components/pro-table" exact component={IProTable}/>
                             <Route path="/components/user-from" exact component={UserFrom}/>
                             <Route path="/components/pro-from" exact component={IProFrom}/>
-                            <Route path="/components/page-transfer" exact component={PageTransfer}/>
                         </Switch>
                     </VerifyLogin>
                 </Route>

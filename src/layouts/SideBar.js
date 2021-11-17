@@ -14,14 +14,21 @@ const {SubMenu} = Menu;
 
 const menuList = [
     {
-        key: 'components',
-        name: '组件',
+        key: 'user',
+        name: '用户管理',
         icon: <PieChartOutlined/>,
         children: [
             {
-                key: '/components/user-table',
-                name: '普通表格',
+                key: '/user/user-table',
+                name: '用户列表',
             },
+        ]
+    },
+    {
+        key: 'components',
+        name: '高级',
+        icon: <PieChartOutlined/>,
+        children: [
             {
                 key: '/components/pro-table',
                 name: '高级表格',
@@ -33,10 +40,6 @@ const menuList = [
             {
                 key: '/components/pro-from',
                 name: '高级表单',
-            },
-            {
-                key: '/components/page-transfer',
-                name: '穿梭框',
             },
         ]
     }

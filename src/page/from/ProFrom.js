@@ -35,7 +35,7 @@ export default function IProFrom() {
             request={async () => {
                 await waitTime(100);
                 return {
-                    name: '蚂蚁设计有限公司',
+                    name: '设计有限公司',
                     useMode: 'chapter',
                 };
             }}
