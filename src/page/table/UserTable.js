@@ -110,7 +110,7 @@ export default function UserTable() {
     }
 
     function handleEdit(obj) {
-        message.success(JSON.stringify(obj));
+        message.success(obj.id);
         setState({
             ...state,
             visible: true,
@@ -150,7 +150,7 @@ export default function UserTable() {
                     name="advanced_search"
                     className="ant-advanced-search-form"
                     onFinish={onFinish}
-                    initialValues={{age: ''}}
+                    initialValues={{sex: ''}}
                 >
                     <Row gutter={24}>
                         <Col span={6}>
@@ -169,11 +169,11 @@ export default function UserTable() {
                         </Col>
                         <Col span={6}>
                             <Form.Item
-                                name="age"
-                                label="年龄"
+                                name="sex"
+                                label="性别"
                             >
                                 <Select onChange={handleSelectChange}>
-                                    <Option value="">选择年龄</Option>
+                                    <Option value="">选择性别</Option>
                                     <Option value="1">男</Option>
                                     <Option value="2">女</Option>
                                 </Select>
@@ -211,9 +211,10 @@ export default function UserTable() {
                 columns={columns}
                 dataSource={state.data}
                 onChange={handleChange}
-                pagination={{pageSize: 20}}
+                pagination={{pageSize: 10}}
                 rowKey="id"
             />
+
             <UserDetail visible={state.visible} id={state.id} handleCancel={handleClosable}/>
         </div>
     );

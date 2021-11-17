@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
-import { setFooterCollapsed } from '../action/action';
+import { setFooterCollapsed } from '../redux/action';
 import { connect } from 'react-redux'
 import {
     PieChartOutlined,

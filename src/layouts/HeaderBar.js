@@ -23,10 +23,6 @@ export default function HeaderBar() {
     function onMenuClick(e) {
         if (e.key === 'outLogin') {
             localStorage.removeItem('user');
-            setState({
-                ...state,
-                visible: false
-            });
             window.location.href = '/login';
         }
     }
@@ -37,7 +33,6 @@ export default function HeaderBar() {
             visible: flag
         });
     }
-
     return (
         <Header>
             <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={state.visible}>
