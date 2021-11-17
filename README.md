@@ -1,7 +1,6 @@
 # 基于react + and design实现的权限管理后台
 
-[项目演示](http://admin.adiandian.cn)
-
+- [项目演示](http://admin.adiandian.cn)
 - [React](https://react.docschina.org/)
 - [Ant Design](https://ant.design/docs/react/introduce-cn)
 
