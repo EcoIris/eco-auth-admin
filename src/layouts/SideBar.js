@@ -4,6 +4,8 @@ import { setFooterCollapsed } from '../redux/action';
 import { connect } from 'react-redux'
 import {
     PieChartOutlined,
+    UnorderedListOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import config from '../page/config/Config.json';
@@ -27,7 +29,7 @@ const menuList = [
     {
         key: 'components',
         name: '高级',
-        icon: <PieChartOutlined/>,
+        icon: <UnorderedListOutlined />,
         children: [
             {
                 key: '/components/pro-table',
@@ -40,6 +42,17 @@ const menuList = [
             {
                 key: '/components/pro-from',
                 name: '高级表单',
+            },
+        ]
+    },
+    {
+        key: 'admin',
+        name: '个人中心',
+        icon: <UserOutlined />,
+        children: [
+            {
+                key: '/admin/admin-setting',
+                name: '个人设置',
             },
         ]
     }

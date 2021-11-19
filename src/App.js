@@ -9,6 +9,7 @@ import UserTable from "./page/user/UserTable";
 import UserFrom from './page/from/UserFrom';
 import IProTable from "./page/user/ProTable";
 import IProFrom from "./page/from/ProFrom";
+import AdminSetting from "./page/admin/AdminSetting";
 
 const App = React.FC = () => {
     return (
@@ -24,6 +25,7 @@ const App = React.FC = () => {
                             <Route path="/components/pro-table" exact component={IProTable}/>
                             <Route path="/components/user-from" exact component={UserFrom}/>
                             <Route path="/components/pro-from" exact component={IProFrom}/>
+                            <Route path="/admin/admin-setting" exact component={AdminSetting}/>
                         </Switch>
                     </VerifyLogin>
                 </Route>
