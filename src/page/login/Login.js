@@ -5,7 +5,6 @@ import {UserOutlined, MobileOutlined, LockOutlined, WechatOutlined} from '@ant-d
 import {message, Tabs, Space, Button} from 'antd';
 import config from "../config/Config.json"
 import './login.less';
-import {Link} from 'react-router-dom';
 // import axios from "axios";
 
 function init() {
@@ -85,7 +84,7 @@ export default function Login() {
                                 size: 'large',
                                 prefix: <UserOutlined className={'prefixIcon'}/>,
                             }}
-                            placeholder={'用户名'}
+                            placeholder={'用户名随便输'}
                             rules={[
                                 {
                                     required: true,
@@ -99,7 +98,7 @@ export default function Login() {
                                 size: 'large',
                                 prefix: <LockOutlined className={'prefixIcon'}/>,
                             }}
-                            placeholder={'密码'}
+                            placeholder={'密码随便输'}
                             rules={[
                                 {
                                     required: true,
@@ -157,9 +156,6 @@ export default function Login() {
                         />
                     </>
                 )}
-                <div style={{marginBottom: 24}}>
-                    <Link to="/register">注册新用户</Link>
-                </div>
             </LoginForm>
         </div>
     );

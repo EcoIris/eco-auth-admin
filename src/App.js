@@ -2,7 +2,6 @@ import React from 'react';
 import './App.less';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from "./page/login/Login";
-import Register from "./page/login/Register";
 import VerifyLogin from "./components/VerifyLogin";
 import Home from "./page/home/Home";
 import UserTable from "./page/user/UserTable";
@@ -15,7 +14,6 @@ const App = React.FC = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/login" exact component={Login}/>
-                <Route path="/register" exact component={Register}/>
                 <Route>
                     <VerifyLogin>
                         <Switch>
