@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
 const defaultState = {
     footerCollapsed: false,
 }
 
-function footerCollapsed (state = defaultState.footerCollapsed, action) {
+function footerCollapsed(state = defaultState.footerCollapsed, action) {
     switch (action.type) {
         case 'SET_FOOTER_WITCH':
-            return action.data
+            return action.data;
         default:
-            return state
+            return state;
     }
 }
 
