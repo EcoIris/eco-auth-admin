@@ -1,11 +1,11 @@
 import React from "react";
 import {Button, Row, Col, Input, Select, Drawer, message, Space, Upload} from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import Label from "../../common/Label";
 
 function init() {
     return {
         loading: false,
-        visible: true,
         version: 0,
         disable: true,
         from: {
@@ -16,10 +16,6 @@ function init() {
             address: '',
         }
     };
-}
-
-function Label(props) {
-    return <div style={{color: '#aaa', fontSize: '13px', lineHeight: '13px', marginBottom: '5px'}}>{props.children}</div>;
 }
 
 export default function UserDetail({id, visible, handleCancel}) {
@@ -36,6 +32,7 @@ export default function UserDetail({id, visible, handleCancel}) {
     );
 
     React.useEffect(() => {
+        console.log(111);
         //根据ID请求接口获取用户信息
         // axios.get('/api/user/detail', {
         //     params: {
@@ -57,7 +54,6 @@ export default function UserDetail({id, visible, handleCancel}) {
         // });
         setState(state => ({
             ...state,
-            visible: visible,
             disable: true,
             from: {
                 ...state.from,
@@ -74,8 +70,8 @@ export default function UserDetail({id, visible, handleCancel}) {
         message.success(JSON.stringify(state.from));
     }
 
-    function handleSelectChange(name, value) {
-        console.log(name,value);
+    function handleSelectChange(value) {
+        console.log(value);
 
         setState(state => ({
             ...state,
@@ -151,7 +147,7 @@ export default function UserDetail({id, visible, handleCancel}) {
             placement="right"
             closable={false}
             onClose={handleCancel}
-            visible={state.visible}
+            visible={visible}
             footer={[
                 <Space key="footer" style={{float: 'right'}}>
                     <Button key="back" onClick={handleCancel}>

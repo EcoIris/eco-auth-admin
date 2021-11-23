@@ -3,7 +3,9 @@ import {useHistory} from 'react-router-dom';
 import {LoginForm, ProFormText, ProFormCaptcha} from '@ant-design/pro-form';
 import {UserOutlined, MobileOutlined, LockOutlined, WechatOutlined} from '@ant-design/icons';
 import {message, Tabs, Space, Button} from 'antd';
+import config from "../config/Config.json"
 import './login.less';
+import {Link} from 'react-router-dom';
 // import axios from "axios";
 
 function init() {
@@ -60,8 +62,8 @@ export default function Login() {
     return (
         <div className="login-form">
             <LoginForm
-                logo="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                title="Auth Admin"
+                logo={config.logo}
+                title={config.title}
                 subTitle="基于react + ant design实现的权限管理后台"
                 actions={
                     <Space>
@@ -156,12 +158,7 @@ export default function Login() {
                     </>
                 )}
                 <div style={{marginBottom: 24}}>
-                    <a href="/register">
-                        注册新用户
-                    </a>
-                    {/*<a style={{float: 'right'}} href="/#">*/}
-                    {/*    忘记密码*/}
-                    {/*</a>*/}
+                    <Link to="/register">注册新用户</Link>
                 </div>
             </LoginForm>
         </div>

@@ -28,7 +28,7 @@ const wechat = () => (
 );
 
 
-function AdminSetting() {
+function Setting() {
     const [state, setState] = React.useState(init());
 
     const [basicForm] = Form.useForm();
@@ -50,8 +50,7 @@ function AdminSetting() {
                 cancelText="取消"
                 onCancel={onCancel}
                 onOk={() => {
-                    form
-                        .validateFields()
+                    form.validateFields()
                         .then((values) => {
                             form.resetFields();
                             onCreate(values);
@@ -196,7 +195,7 @@ function AdminSetting() {
 
     React.useEffect(() => {
         basicForm.setFieldsValue({
-            username: 'admin',
+            username: 'account',
             image: ['https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'],
             email: '88888@qq.com',
             sex: '1'
@@ -344,7 +343,7 @@ function AdminSetting() {
                     <Form.Item
                         label="性别"
                         name="sex"
-                        rules={[{required: true, message: '请输入邮箱!'}]}
+                        rules={[{required: true, message: '请选择性别!'}]}
                     >
                         <Select>
                             <Option value="">选择性别</Option>
@@ -395,4 +394,4 @@ function AdminSetting() {
     );
 }
 
-export default AdminSetting;
+export default Setting;

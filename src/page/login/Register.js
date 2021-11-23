@@ -4,6 +4,7 @@ import {LoginForm, ProFormText, ProFormCaptcha} from '@ant-design/pro-form';
 import {UserOutlined, MobileOutlined, LockOutlined} from '@ant-design/icons';
 import {message, Tabs} from 'antd';
 import './login.less';
+import {Link} from 'react-router-dom';
 // import axios from "axios";
 
 function init() {
@@ -160,12 +161,7 @@ export default function Login() {
                     </>
                 )}
                 <div style={{marginBottom: 24}}>
-                    <a href="/login">
-                        去登录
-                    </a>
-                    {/*<a style={{float: 'right'}} href="/#">*/}
-                    {/*    忘记密码*/}
-                    {/*</a>*/}
+                    <Link to="/login">去登录</Link>
                 </div>
             </LoginForm>
         </div>

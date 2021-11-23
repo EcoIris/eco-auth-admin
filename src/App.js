@@ -6,10 +6,9 @@ import Register from "./page/login/Register";
 import VerifyLogin from "./components/VerifyLogin";
 import Home from "./page/home/Home";
 import UserTable from "./page/user/UserTable";
-import UserFrom from './page/from/UserFrom';
-import IProTable from "./page/user/ProTable";
-import IProFrom from "./page/from/ProFrom";
-import AdminSetting from "./page/admin/AdminSetting";
+import Setting from "./page/account/Setting";
+import User from "./page/auth/User";
+import NotFound from "./page/404";
 
 const App = React.FC = () => {
     return (
@@ -22,10 +21,9 @@ const App = React.FC = () => {
                         <Switch>
                             <Route path="/" exact component={Home}/>
                             <Route path="/user/user-table" exact component={UserTable}/>
-                            <Route path="/components/pro-table" exact component={IProTable}/>
-                            <Route path="/components/user-from" exact component={UserFrom}/>
-                            <Route path="/components/pro-from" exact component={IProFrom}/>
-                            <Route path="/admin/admin-setting" exact component={AdminSetting}/>
+                            <Route path="/account/setting" exact component={Setting}/>
+                            <Route path="/auth/user-list" exact component={User}/>
+                            <Route  component={NotFound} />
                         </Switch>
                     </VerifyLogin>
                 </Route>

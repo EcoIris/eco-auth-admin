@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Input, Table, Button, Select, message, Space} from 'antd';
+import {Form, Row, Col, Input, Table, Button, message, Space} from 'antd';
 import BatchOperation from "../../common/BatchOperation";
 import UserDetail from "./UserDetail";
 
@@ -15,12 +15,10 @@ function init() {
     };
 }
 
-export default function UserTable() {
+export default function User() {
     const [state, setState] = React.useState(init());
 
     const [form] = Form.useForm();
-
-    const {Option} = Select;
 
     const rowSelection = {
         selectedRowKeys: state.selectedRowKeys,
@@ -52,26 +50,9 @@ export default function UserTable() {
             width: 100,
         },
         {
-            title: '性别',
-            dataIndex: 'sex',
-            width: 50,
-            sorter: (a, b) => a.sex - b.sex,
-            sortDirections: ['ascend', 'descend'],
-            render: (text, record) => {
-                switch(record.sex) {
-                    case 1:
-                        return '男';
-                    case 2:
-                        return '女';
-                    default:
-                        return '胡一菲';
-                }
-            }
-        },
-        {
-            title: '年龄',
-            dataIndex: 'age',
-            width: 80,
+            title: '角色',
+            dataIndex: 'roleName',
+            width: 100,
         },
         {
             title: '描述',
@@ -93,14 +74,13 @@ export default function UserTable() {
 
     React.useEffect(() => {
         const data = [];
-        for (let i = 1; i < 46; i++) {
+        for (let i = 1; i < 5; i++) {
             data.push({
                 id: i,
                 name: `Edward King ${i}`,
                 image: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-                sex: (i % 2 === 0) ? 1 : 2,
-                age: parseInt(Math.random() * 100),
-                desc: `London, Park Lane no. ${i}`,
+                roleName: '管理员',
+                desc: `拥有至高无上的权利`,
             });
         }
         setState(state => ({
@@ -139,10 +119,6 @@ export default function UserTable() {
         console.log(pagination, filters, sorter, extra);
     }
 
-    function handleSelectChange(value) {
-        console.log(value);
-    }
-
     function handleBatchDelete() {
         console.log(state.selectedRowKeys);
         message.success('功能开发中');
@@ -157,7 +133,7 @@ export default function UserTable() {
 
     return (
         <div>
-            <div className="form-search">
+            <div className="form-search" style={{padding: '10px 0'}}>
                 <Form
                     form={form}
                     name="advanced_search"
@@ -168,20 +144,6 @@ export default function UserTable() {
                     <Row gutter={24}>
                         <Col span={6}>
                             <Form.Item
-                                name="name"
-                                label="昵称"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '昵称必填',
-                                    },
-                                ]}
-                            >
-                                <Input placeholder="输入昵称"/>
-                            </Form.Item>
-                        </Col>
-                        <Col span={6}>
-                            <Form.Item
                                 name="id"
                                 label="ID"
                             >
@@ -190,22 +152,10 @@ export default function UserTable() {
                         </Col>
                         <Col span={6}>
                             <Form.Item
-                                name="sex"
-                                label="性别"
+                                name="name"
+                                label="昵称"
                             >
-                                <Select onChange={handleSelectChange}>
-                                    <Option value="">选择性别</Option>
-                                    <Option value="1">男</Option>
-                                    <Option value="2">女</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                        <Col span={6}>
-                            <Form.Item
-                                name="age"
-                                label="年龄"
-                            >
-                                <Input placeholder="输入年龄"/>
+                                <Input placeholder="输入昵称"/>
                             </Form.Item>
                         </Col>
                     </Row>
@@ -234,6 +184,14 @@ export default function UserTable() {
                 onChange={handleChange}
                 pagination={{pageSize: 10}}
                 rowKey="id"
+                title={() => (
+                    <div>
+                        <span>管理员列表</span>
+                        <Space key="footer" style={{float: 'right'}}>
+                            <Button key="submit" type="primary" onClick={handleEdit}>添加</Button>
+                        </Space>
+                    </div>
+                )}
             />
 
             {state.visible && <UserDetail visible={state.visible} id={state.id} handleCancel={handleClosable}/>}

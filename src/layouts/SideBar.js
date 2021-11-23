@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
-import { setFooterCollapsed } from '../redux/action';
-import { connect } from 'react-redux'
+import {setFooterCollapsed} from '../redux/action';
+import {connect} from 'react-redux'
 import {
-    PieChartOutlined,
-    UnorderedListOutlined,
-    UserOutlined
+    TeamOutlined,
+    UserOutlined,
+    UnlockOutlined
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import config from '../page/config/Config.json';
@@ -18,7 +18,7 @@ const menuList = [
     {
         key: 'user',
         name: '用户管理',
-        icon: <PieChartOutlined/>,
+        icon: <TeamOutlined/>,
         children: [
             {
                 key: '/user/user-table',
@@ -27,35 +27,31 @@ const menuList = [
         ]
     },
     {
-        key: 'components',
-        name: '高级',
-        icon: <UnorderedListOutlined />,
+        key: 'auth',
+        name: '权限管理',
+        icon: <UnlockOutlined/>,
         children: [
             {
-                key: '/components/pro-table',
-                name: '高级表格',
+                key: '/auth/user-list',
+                name: '管理员列表',
             },
             {
-                key: '/components/user-from',
-                name: '分步表单',
-            },
-            {
-                key: '/components/pro-from',
-                name: '高级表单',
+                key: '/auth/role',
+                name: '角色列表',
             },
         ]
     },
     {
-        key: 'admin',
+        key: 'account',
         name: '个人中心',
-        icon: <UserOutlined />,
+        icon: <UserOutlined/>,
         children: [
             {
-                key: '/admin/admin-setting',
+                key: '/account/setting',
                 name: '个人设置',
             },
         ]
-    }
+    },
 ];
 
 class SideBar extends Component {
@@ -91,7 +87,7 @@ class SideBar extends Component {
     //展开/收缩侧边栏
     onCollapse = collapsed => {
         // react-redux 触发setFooterCollapsed
-        let { setFooterCollapsed } = this.props
+        let {setFooterCollapsed} = this.props
         setFooterCollapsed(collapsed);
 
         this.setState({
@@ -101,14 +97,16 @@ class SideBar extends Component {
 
     render() {
         return (
-            <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} collapsedWidth={65}  breakpoint="lg">
+            <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} collapsedWidth={65}
+                   breakpoint="lg">
                 <div className="ant-pro-sider-logo" id="logo">
                     <a href="/">
                         <img src={config.logo} alt="logo"/>
                         <h1>{config.title}</h1>
                     </a>
                 </div>
-                <Menu theme="dark" defaultOpenKeys={this.state.defaultOpenKeys} defaultSelectedKeys={this.state.defaultSelectedKeys} mode="inline">
+                <Menu theme="dark" defaultOpenKeys={this.state.defaultOpenKeys}
+                      defaultSelectedKeys={this.state.defaultSelectedKeys} mode="inline">
                     {menuList.map(v => <SubMenu key={v.key} icon={v.icon} title={v.name}>
                         {v.children && v.children.map(vv => <Menu.Item key={vv.key}>
                             <Link to={vv.key}>{vv.name}</Link>
@@ -130,7 +128,7 @@ const mapStateToProps = (state) => {
 // mapDispatchToProps：将dispatch映射到组件的props中
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        setFooterCollapsed (data) {
+        setFooterCollapsed(data) {
             dispatch(setFooterCollapsed(data))
         },
     }
