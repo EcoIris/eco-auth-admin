@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Row, Col, Input, Table, Button, Select, message, Space} from 'antd';
-import BatchOperation from "../../common/BatchOperation";
+import BatchOperation from "../../components/BatchOperation";
 import UserDetail from "./UserDetail";
 
 function init() {

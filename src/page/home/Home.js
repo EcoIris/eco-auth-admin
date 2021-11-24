@@ -5,7 +5,7 @@ import {
     ArrowUpOutlined,
     ArrowDownOutlined
 } from '@ant-design/icons';
-import MessageTooltip from "../../common/MessageTooltip";
+import MessageTooltip from "../../components/MessageTooltip";
 
 
 const CityFoodColumn = () => {

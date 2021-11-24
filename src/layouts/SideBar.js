@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import config from '../page/config/Config.json';
+import {withRouter} from 'react-router-dom';
 
 const {Sider} = Layout;
 
@@ -19,10 +20,12 @@ const menuList = [
         key: 'user',
         name: '用户管理',
         icon: <TeamOutlined/>,
+        authority: true,
         children: [
             {
                 key: '/user/user-table',
                 name: '用户列表',
+                authority: true,
             },
         ]
     },
@@ -30,14 +33,17 @@ const menuList = [
         key: 'auth',
         name: '权限管理',
         icon: <UnlockOutlined/>,
+        authority: true,
         children: [
             {
                 key: '/auth/user-list',
                 name: '管理员列表',
+                authority: true,
             },
             {
-                key: '/auth/role',
+                key: '/auth/role-list',
                 name: '角色列表',
+                authority: true,
             },
         ]
     },
@@ -45,10 +51,29 @@ const menuList = [
         key: 'account',
         name: '个人中心',
         icon: <UserOutlined/>,
+        authority: true,
         children: [
             {
                 key: '/account/setting',
                 name: '个人设置',
+                authority: true,
+            },
+        ]
+    },
+    {
+        key: 'abnormal',
+        name: '异常页',
+        icon: <UserOutlined/>,
+        authority: true,
+        children: [
+            {
+                key: '/403',
+                name: '403',
+            },
+            {
+                key: '/404',
+                name: '404',
+                authority: true,
             },
         ]
     },
@@ -73,6 +98,13 @@ class SideBar extends Component {
         const pathname = window.location.pathname;
         const currentKey = pathname.split('/')[1];
         menuList.forEach(v => {
+            if (v.children) {
+                v.children.forEach(vv => {
+                    if (vv.key === pathname && !vv.authority) {
+                        this.props.history.push('/403')
+                    }
+                })
+            }
             if (currentKey === v.key) {
                 defaultOpenKeys.push(v.key);
                 defaultSelectedKeys.push(pathname);
@@ -95,6 +127,18 @@ class SideBar extends Component {
         });
     };
 
+    handleMenuClick = item => {
+        menuList.forEach(v => {
+            if (v.children) {
+                v.children.forEach(vv => {
+                    if (vv.key === item.key && !vv.authority) {
+                        this.props.history.push('/403')
+                    }
+                })
+            }
+        });
+    }
+
     render() {
         return (
             <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} collapsedWidth={65}
@@ -105,8 +149,12 @@ class SideBar extends Component {
                         <h1>{config.title}</h1>
                     </a>
                 </div>
-                <Menu theme="dark" defaultOpenKeys={this.state.defaultOpenKeys}
-                      defaultSelectedKeys={this.state.defaultSelectedKeys} mode="inline">
+                <Menu theme="dark"
+                      defaultOpenKeys={this.state.defaultOpenKeys}
+                      defaultSelectedKeys={this.state.defaultSelectedKeys}
+                      mode="inline"
+                      onClick={this.handleMenuClick}
+                >
                     {menuList.map(v => <SubMenu key={v.key} icon={v.icon} title={v.name}>
                         {v.children && v.children.map(vv => <Menu.Item key={vv.key}>
                             <Link to={vv.key}>{vv.name}</Link>
@@ -134,4 +182,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SideBar));

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Form, Row, Col, Input, Table, Button, message, Space} from 'antd';
+import {Form, Row, Col, Input, Table, Button, message, Space, DatePicker} from 'antd';
 import BatchOperation from "../../components/BatchOperation";
-import UserDetail from "./UserDetail";
+import RoleDetail from "./RoleDetail";
 
 function init() {
     return {
@@ -15,10 +15,12 @@ function init() {
     };
 }
 
-export default function User() {
+export default function UserTable() {
     const [state, setState] = React.useState(init());
 
     const [form] = Form.useForm();
+
+    const { RangePicker } = DatePicker;
 
     const rowSelection = {
         selectedRowKeys: state.selectedRowKeys,
@@ -37,28 +39,19 @@ export default function User() {
             )
         },
         {
-            title: '头像',
-            dataIndex: 'image',
-            width: 100,
-            render: ((text, record) => {
-                return <img src={text} alt="" width={50}/>
-            })
-        },
-        {
-            title: '昵称',
+            title: '角色名',
             dataIndex: 'name',
-            width: 100,
-        },
-        {
-            title: '角色',
-            dataIndex: 'roleName',
             width: 100,
         },
         {
             title: '描述',
             dataIndex: 'desc',
+            width: 150,
+        },
+        {
+            title: '添加时间',
+            dataIndex: 'add_time',
             width: 100,
-            ellipsis: true,
         },
         {
             title: '操作',
@@ -73,16 +66,26 @@ export default function User() {
     ];
 
     React.useEffect(() => {
-        const data = [];
-        for (let i = 1; i < 5; i++) {
-            data.push({
-                id: i,
-                name: `Edward King ${i}`,
-                image: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-                roleName: '管理员',
-                desc: `拥有至高无上的权利`,
-            });
-        }
+        const data = [
+            {
+                id: 1,
+                name: '超级管理员',
+                add_time: '2021-11-11 00:00:00',
+                desc: '我是一段描述文字'
+            },
+            {
+                id: 2,
+                name: '开发人员',
+                add_time: '2021-11-11 00:00:00',
+                desc: '我是一段描述文字'
+            },
+            {
+                id: 3,
+                name: '运营',
+                add_time: '2021-11-11 00:00:00',
+                desc: '我是一段描述文字'
+            }
+        ];
         setState(state => ({
             ...state,
             data: data,
@@ -91,6 +94,13 @@ export default function User() {
     }, [state.version]);
 
     function onFinish(values) {
+        /*
+            用form表单提交的时间组件值是两个moment对象,需要格式化: moment.format('YYYY-MM-DD')
+            回显的时候需要引入moment格式化保存的字符串: moment('2021-11-11', 'YYYY-MM-DD')
+        */
+        if (values.add_time) {
+            values.add_time = [values.add_time[0].format('YYYY-MM-DD'), values.add_time[1].format('YYYY-MM-DD')];
+        }
         message.success('Received values of form: ' + JSON.stringify(values));
     }
 
@@ -133,7 +143,7 @@ export default function User() {
 
     return (
         <div>
-            <div className="form-search" style={{padding: '10px 0'}}>
+            <div className="form-search">
                 <Form
                     form={form}
                     name="advanced_search"
@@ -141,7 +151,7 @@ export default function User() {
                     onFinish={onFinish}
                 >
                     <Row gutter={24}>
-                        <Col span={6}>
+                        <Col span={8}>
                             <Form.Item
                                 name="id"
                                 label="ID"
@@ -149,12 +159,20 @@ export default function User() {
                                 <Input placeholder="输入ID"/>
                             </Form.Item>
                         </Col>
-                        <Col span={6}>
+                        <Col span={8}>
                             <Form.Item
                                 name="name"
-                                label="昵称"
+                                label="角色名"
                             >
-                                <Input placeholder="输入昵称"/>
+                                <Input placeholder="输入角色名"/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item
+                                name="add_time"
+                                label="添加时间"
+                            >
+                                <RangePicker/>
                             </Form.Item>
                         </Col>
                     </Row>
@@ -185,7 +203,6 @@ export default function User() {
                 rowKey="id"
                 title={() => (
                     <div>
-                        <span>管理员列表</span>
                         <Space key="footer" style={{float: 'right'}}>
                             <Button key="submit" type="primary" onClick={handleEdit}>添加</Button>
                         </Space>
@@ -193,7 +210,7 @@ export default function User() {
                 )}
             />
 
-            {state.visible && <UserDetail visible={state.visible} id={state.id} handleCancel={handleClosable}/>}
+            {state.visible && <RoleDetail visible={state.visible} id={state.id} handleCancel={handleClosable}/>}
         </div>
     );
 }

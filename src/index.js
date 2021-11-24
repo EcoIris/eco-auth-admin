@@ -5,10 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import App from "./App";
 import {Provider} from "react-redux";
 import store from "./redux";
+import { ConfigProvider } from 'antd';
+import locale from 'antd/lib/locale/zh_CN';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ConfigProvider locale={locale}>
+            <App />
+        </ConfigProvider>
     </Provider>,
   document.getElementById('root')
 );

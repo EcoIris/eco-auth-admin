@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Row, Col, Input, Select, Drawer, message, Space, Upload} from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import Label from "../../common/Label";
+import Label from "../../components/Label";
 
 function init() {
     return {
@@ -32,7 +32,6 @@ export default function UserDetail({id, visible, handleCancel}) {
     );
 
     React.useEffect(() => {
-        console.log(111);
         //根据ID请求接口获取用户信息
         // axios.get('/api/user/detail', {
         //     params: {

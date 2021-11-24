@@ -1,6 +1,6 @@
 import React from "react";
 import {Modal, message, Row, Col, Upload, Input, Select} from "antd";
-import Label from "../../common/Label";
+import Label from "../../components/Label";
 import {LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 function init() {
     return {
