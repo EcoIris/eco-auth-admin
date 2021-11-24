@@ -5,7 +5,8 @@ import {connect} from 'react-redux'
 import {
     TeamOutlined,
     UserOutlined,
-    UnlockOutlined
+    UnlockOutlined,
+    ExceptionOutlined
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import config from '../page/config/Config.json';
@@ -63,7 +64,7 @@ const menuList = [
     {
         key: 'abnormal',
         name: '异常页',
-        icon: <UserOutlined/>,
+        icon: <ExceptionOutlined />,
         authority: true,
         children: [
             {
