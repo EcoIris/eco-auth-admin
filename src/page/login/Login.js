@@ -90,6 +90,10 @@ export default function Login() {
                                     required: true,
                                     message: '请输入用户名!',
                                 },
+                                {
+                                    max: 10,
+                                    message: '最多十个字符'
+                                }
                             ]}
                         />
                         <ProFormText.Password

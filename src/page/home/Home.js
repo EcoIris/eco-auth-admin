@@ -180,7 +180,7 @@ export default function Home() {
                 <Col span={6}>
                     <Statistic
                         title="访问量"
-                        value={5646}
+                        value={11.46}
                         valueStyle={{ color: '#cf1322' }}
                         prefix={<ArrowDownOutlined  />}
                         suffix="%"
