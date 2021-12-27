@@ -25,7 +25,7 @@ const App = React.FC = () => {
                             <Route path="/auth/user-list" exact component={User}/>
                             <Route path="/auth/role-list" exact component={RoleList}/>
                             <Route path="/403" exact component={NotAuthorized}/>
-                            <Route component={NotFound} />
+                            <Route component={NotFound}/>
                         </Switch>
                     </VerifyLogin>
                 </Route>

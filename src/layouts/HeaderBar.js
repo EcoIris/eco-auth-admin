@@ -167,6 +167,7 @@ export default function HeaderBar() {
 
     const menu = (
         <Menu onClick={onMenuClick}>
+            <Menu.Item key="userInfo">个人设置</Menu.Item>
             <Menu.Item key="outLogin">退出登录</Menu.Item>
         </Menu>
     );
@@ -364,7 +365,7 @@ export default function HeaderBar() {
             </div>
             <Dropdown overlay={menuMsg} trigger={['click']} visible={state.visibleMsg} placemen="bottomRight" onVisibleChange={handleMessageChange}>
                 <a className="message-count" onClick={handleMessageChange}>
-                    <Badge count={999} offset={[10, -6]}>
+                    <Badge count={state.notificationNum + state.messageNum + state.backlogNum} offset={[10, -6]}>
                         <BellOutlined/>
                     </Badge>
                 </a>

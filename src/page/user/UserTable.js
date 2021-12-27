@@ -232,7 +232,7 @@ export default function UserTable() {
                 columns={columns}
                 dataSource={state.data}
                 onChange={handleChange}
-                pagination={{pageSize: 10}}
+                pagination={{pageSize: 15}}
                 rowKey="id"
             />
 
