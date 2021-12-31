@@ -133,11 +133,27 @@ class SideBar extends Component {
             if (v.children) {
                 v.children.forEach(vv => {
                     if (vv.key === item.key && !vv.authority) {
-                        this.props.history.push('/403')
+                        this.props.history.push('/403');
                     }
-                })
+                });
             }
         });
+        this.setState({
+            defaultSelectedKeys: [item.key],
+        });
+    }
+
+    handleOpenChange = openKeys => {
+        this.setState({
+            defaultOpenKeys: openKeys,
+        });
+    }
+
+    handleLogoClick = () => {
+        this.setState({
+            defaultSelectedKeys: [],
+        });
+        this.props.history.push('/');
     }
 
     render() {
@@ -145,16 +161,17 @@ class SideBar extends Component {
             <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} collapsedWidth={65}
                    breakpoint="lg">
                 <div className="ant-pro-sider-logo" id="logo">
-                    <a href="/">
+                    <a onClick={this.handleLogoClick}>
                         <img src={config.logo} alt="logo"/>
                         <h1>{config.title}</h1>
                     </a>
                 </div>
                 <Menu theme="dark"
-                      defaultOpenKeys={this.state.defaultOpenKeys}
-                      defaultSelectedKeys={this.state.defaultSelectedKeys}
+                      openKeys={this.state.defaultOpenKeys}
+                      selectedKeys={this.state.defaultSelectedKeys}
                       mode="inline"
                       onClick={this.handleMenuClick}
+                      onOpenChange={this.handleOpenChange}
                 >
                     {menuList.map(v => <SubMenu key={v.key} icon={v.icon} title={v.name}>
                         {v.children && v.children.map(vv => <Menu.Item key={vv.key}>
@@ -175,7 +192,7 @@ const mapStateToProps = (state) => {
 }
 
 // mapDispatchToProps：将dispatch映射到组件的props中
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setFooterCollapsed(data) {
             dispatch(setFooterCollapsed(data))

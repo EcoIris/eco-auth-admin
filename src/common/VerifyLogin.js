@@ -22,10 +22,9 @@ const style = {
 
 
 export default function VerifyLogin({children}) {
+    const [logged, setLogged] = React.useState(false);
 
     const history = useHistory();
-
-    let [logged, setLogged] = React.useState(false);
 
     //验证是否登录
     React.useEffect(() => {
@@ -39,7 +38,8 @@ export default function VerifyLogin({children}) {
         }
     }, [history]);
 
-    return (logged ? <Layout style={{minHeight: '100vh'}}>
+    return (
+        logged ? <Layout style={{minHeight: '100vh'}}>
             <SideBar/>
             <Layout className="site-layout">
                 <Header/>
@@ -49,5 +49,6 @@ export default function VerifyLogin({children}) {
                 </BackTop>
                 <Footer/>
             </Layout>
-        </Layout> : <Spin size="large" style={{position: 'absolute', left: '50%', top: '50%'}}/>);
+        </Layout> : <Spin size="large" style={{position: 'absolute', left: '50%', top: '50%'}}/>
+    );
 }

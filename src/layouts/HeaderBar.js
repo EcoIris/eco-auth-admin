@@ -3,14 +3,17 @@ import {Layout, Menu, Dropdown, Badge, Tabs, Button, List, Avatar, message, Tag}
 import {useHistory} from 'react-router-dom';
 import {
     BellOutlined,
+    AppstoreOutlined,
     QuestionCircleOutlined
 } from '@ant-design/icons';
 import './HeaderBar.less';
+import ContextMenu from "../components/ContextMenu";
 
 function init() {
     return {
         visible: false,
         visibleMsg: false,
+        contextMenuVisible: false,
         notificationNum: '',
         messageNum: '',
         backlogNum: '',
@@ -18,6 +21,8 @@ function init() {
         notificationList: [],
         messageList: [],
         backlogList: [],
+        xx: '',
+        yy: ''
     };
 }
 
@@ -29,6 +34,8 @@ export default function HeaderBar() {
     const history = useHistory();
 
     const {TabPane} = Tabs;
+
+    const { SubMenu } = Menu;
 
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -167,7 +174,6 @@ export default function HeaderBar() {
 
     const menu = (
         <Menu onClick={onMenuClick}>
-            <Menu.Item key="userInfo">个人设置</Menu.Item>
             <Menu.Item key="outLogin">退出登录</Menu.Item>
         </Menu>
     );
@@ -232,16 +238,25 @@ export default function HeaderBar() {
         </Menu>
     );
 
+    const contextMenu = (
+        <Menu onClick={handleClick}>
+            <Menu.Item key="7" icon={<BellOutlined/>}>编辑</Menu.Item>
+            <Menu.Item key="8">复制</Menu.Item>
+            <SubMenu key="sub2" icon={<AppstoreOutlined />} title="操作">
+                <Menu.Item key="5">粘贴字段</Menu.Item>
+                <Menu.Item key="6">剪切</Menu.Item>
+            </SubMenu>
+        </Menu>
+    );
+
+    function handleClick(e) {
+        console.log('click', e);
+    }
+
     function onMenuClick(e) {
         if (e.key === 'outLogin') {
             localStorage.removeItem('user');
             history.push('/login');
-        } else if (e.key === 'userInfo') {
-            history.push('/account/setting');
-            setState({
-                ...state,
-                visible: false
-            });
         }
     }
 
@@ -356,8 +371,29 @@ export default function HeaderBar() {
         message.success('点击查看更多');
     }
 
+    function handleContextMenu(e) {
+        e.preventDefault();
+        console.log('点击右键');
+        let x = e.clientX;
+        let y = e.clientY;
+        setState({
+            ...state,
+            contextMenuVisible: true,
+            xx: x,
+            yy: y
+        })
+    }
+
+    function handleContextMenuChange() {
+        console.log('点击鼠标左键');
+        setState({
+            ...state,
+            contextMenuVisible: false
+        })
+    }
+
     return (
-        <Header>
+        <Header onContextMenu={handleContextMenu}>
             <div className="github">
                 <a href="https://github.com/EcoIris/eco-auth-admin" title="疑难杂症" rel="noreferrer" target="_blank">
                     <QuestionCircleOutlined />
@@ -376,6 +412,7 @@ export default function HeaderBar() {
                     <span>{user ? user.username : ''}</span>
                 </div>
             </Dropdown>
+            <ContextMenu menu={contextMenu} visible={state.contextMenuVisible} handleChange={handleContextMenuChange} xx={state.xx} yy={state.yy}/>
         </Header>
     );
 }
